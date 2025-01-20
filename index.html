@@ -3,18 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Format.im - Free Online Invoice Number Generator</title>
-    <meta name="description" content="Generate professional invoice numbers instantly. Free online tool for creating sequential, date-based, and custom invoice numbers for your business.">
+    <title>Format.im - Professional Invoice Number Generator | Free Online Tool</title>
+    <meta name="description" content="Generate professional invoice numbers instantly. Free online tool for creating sequential, date-based, and custom invoice numbers. Compatible with Excel, Python, PHP, and more.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
-            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --primary-light: #60a5fa;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
             --text-primary: #1e293b;
             --text-secondary: #64748b;
             --background: #ffffff;
             --background-alt: #f8fafc;
             --border: #e2e8f0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         * {
@@ -41,9 +56,10 @@
 
         /* Header */
         .header {
-            background: var(--background);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
             padding: 1rem 0;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
             position: fixed;
             width: 100%;
             top: 0;
@@ -59,41 +75,70 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary);
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-decoration: none;
         }
 
         /* Hero Section */
         .hero {
             padding: 8rem 0 4rem;
-            background: linear-gradient(to bottom, #f0f9ff, var(--background));
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
             text-align: center;
+            color: white;
         }
 
         .hero-title {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
             line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .hero-description {
             font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 2rem;
+            opacity: 0.9;
         }
 
         /* Tool Section */
         .tool-section {
             padding: 4rem 0;
             background: var(--background);
+            position: relative;
+        }
+
+        .tool-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom right, transparent 49.5%, var(--background) 50%);
         }
 
         .tool-container {
             border-radius: 1rem;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+            background: white;
+            position: relative;
+        }
+
+        .tool-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
 
         .tool-frame {
@@ -102,17 +147,20 @@
             border: none;
         }
 
-        /* Features Section */
+        /* Features Grid */
         .features {
-            padding: 4rem 0;
-            background: var(--background-alt);
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f6f8ff 0%, #f0f4ff 100%);
         }
 
         .section-title {
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 2.5rem;
+            font-weight: 800;
             text-align: center;
             margin-bottom: 3rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .features-grid {
@@ -122,85 +170,196 @@
         }
 
         .feature-card {
-            background: var(--background);
+            background: rgba(255, 255, 255, 0.9);
             padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
         }
 
         .feature-title {
             font-size: 1.25rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1rem;
+            color: var(--primary);
         }
 
-        /* Benefits Section */
-        .benefits {
-            padding: 4rem 0;
-            background: var(--background);
+        /* Use Cases Section */
+        .use-cases {
+            padding: 6rem 0;
+            background: white;
         }
 
-        .benefits-list {
-            max-width: 800px;
-            margin: 0 auto;
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
-        .benefit-item {
+        .use-case-item {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+
+        /* Integration Section */
+        .integrations {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .integration-logos {
             display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-top: 3rem;
         }
 
-        .benefit-icon {
-            flex-shrink: 0;
-            width: 48px;
-            height: 48px;
-            background: var(--primary-light);
-            border-radius: 50%;
+        .integration-logo {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            background: var(--background-alt);
+            border: 1px solid var(--border);
+        }
+
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 0;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
         }
 
         /* Footer */
         .footer {
-            background: var(--background-alt);
-            padding: 2rem 0;
-            text-align: center;
-            color: var(--text-secondary);
+            background: var(--text-primary);
+            padding: 4rem 0;
+            color: white;
         }
 
-        .footer a {
-            color: var(--primary);
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-column h3 {
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: white;
         }
 
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .hero-description {
-                font-size: 1rem;
+                font-size: 1.125rem;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="container">
             <a href="/" class="logo">Format.im</a>
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h1 class="hero-title">Professional Invoice Number Generator</h1>
-            <p class="hero-description">Create unique, sequential invoice numbers instantly. Perfect for businesses of all sizes.</p>
+            <p class="hero-description">Generate unique, sequential, and professional invoice numbers instantly. Perfect for Excel, PHP, Python, and any business application.</p>
         </div>
     </section>
 
+    <!-- Tool Section -->
     <section class="tool-section">
         <div class="container">
             <div class="tool-container">
@@ -209,60 +368,189 @@
         </div>
     </section>
 
+    <!-- Features Section -->
     <section class="features">
         <div class="container">
-            <h2 class="section-title">Why Choose Our Generator?</h2>
+            <h2 class="section-title">Comprehensive Invoice Number Generation</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <h3 class="feature-title">Multiple Numbering Formats</h3>
-                    <p>Choose from sequential, date-based, client-based, or custom formats to match your business needs.</p>
+                    <h3 class="feature-title">Multiple Format Support</h3>
+                    <p>Generate invoice numbers in various formats: sequential, date-based, client-based, or fully customized patterns. Perfect for Excel integration and automated systems.</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">Easy to Use</h3>
-                    <p>Simple interface with instant preview. Generate numbers in seconds with our user-friendly tool.</p>
+                    <h3 class="feature-title">Excel Compatible</h3>
+                    <p>Export your generated invoice numbers directly to Excel. Create invoice templates with auto-incrementing numbers that seamlessly integrate with your existing workflows.</p>
                 </div>
                 <div class="feature-card">
-                    <h3 class="feature-title">Free & No Registration</h3>
-                    <p>Use our tool completely free, no sign-up required. Just open and start generating.</p>
+                    <h3 class="feature-title">Programming Integration</h3>
+                    <p>Ideal for developers using Python, Django, PHP, or any other programming language. Generate unique invoice numbers programmatically for your applications.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Customization Options</h3>
+                    <p>Add prefixes, suffixes, and custom separators. Create random invoice numbers or sequential patterns that match your business requirements.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Bulk Generation</h3>
+                    <p>Generate multiple invoice numbers at once. Perfect for setting up large batches of invoices or preparing templates for future use.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Business Ready</h3>
+                    <p>Create professional invoice numbers that comply with business standards. Includes support for proforma invoices and specialized numbering sequences.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="benefits">
+    <!-- Use Cases Section -->
+    <section class="use-cases">
         <div class="container">
-            <h2 class="section-title">Benefits of Structured Invoice Numbers</h2>
-            <div class="benefits-list">
-                <div class="benefit-item">
-                    <div class="benefit-icon"></div>
-                    <div>
-                        <h3>Better Organization</h3>
-                        <p>Structured invoice numbers help you keep track of all your business transactions efficiently.</p>
-                    </div>
+            <h2 class="section-title">Perfect For Every Business Need</h2>
+            <div class="use-case-grid">
+                <div class="use-case-item">
+                    <h3>Freelancers</h3>
+                    <p>Create professional invoice numbers for your client billing</p>
                 </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon"></div>
-                    <div>
-                        <h3>Professional Appearance</h3>
-                        <p>Well-formatted invoice numbers give your business documents a professional, organized look.</p>
-                    </div>
+                <div class="use-case-item">
+                    <h3>Small Business</h3>
+                    <p>Maintain organized billing with sequential invoice numbers</p>
                 </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon"></div>
-                    <div>
-                        <h3>Easy Tracking</h3>
-                        <p>Sequential numbering makes it simple to track payments and maintain accurate financial records.</p>
-                    </div>
+                <div class="use-case-item">
+                    <h3>Enterprises</h3>
+                    <p>Generate complex invoice numbers for multiple departments</p>
+                </div>
+                <div class="use-case-item">
+                    <h3>Developers</h3>
+                    <p>Integrate automatic invoice numbering in your applications</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Integration Section -->
+    <section class="integrations">
+        <div class="container">
+            <h2 class="section-title">Works With Your Tools</h2>
+            <div class="integration-logos">
+                <div class="integration-logo">Excel</div>
+                <div class="integration-logo">PHP</div>
+                <div class="integration-logo">Python</div>
+                <div class="integration-logo">Django</div>
+                <div class="integration-logo">HTML</div>
+                <div class="integration-logo">Google Sheets</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3 class="faq-question">How do I create an automatic invoice number in Excel?</h3>
+                    <p>Use our generator to create a sequence of invoice numbers, then export them to Excel. You can also use Excel's built-in formulas with our number patterns for automatic incrementing.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">Can I generate random invoice numbers?</h3>
+                    <p>Yes! Our tool supports random invoice number generation while ensuring uniqueness. Perfect for situations where sequential numbers aren't desired.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">How do I implement auto-incrementing invoice numbers in PHP?</h3>
+                    <p>Our generator can create number patterns that you can easily implement in PHP using simple increment functions. We also provide example code for PHP integration.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">Is this tool suitable for creating proforma invoice numbers?</h3>
+                    <p>Absolutely! You can customize the prefix (e.g., PRO-) and numbering sequence specifically for proforma invoices to maintain separate sequences.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">Can I export the generated numbers to different formats?</h3>
+                    <p>Yes, generated numbers can be copied to clipboard or exported in formats compatible with Excel, Google Sheets, and other common business tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" style="padding: 6rem 0; background: linear-gradient(135deg, #f6f8ff 0%, #f0f4ff 100%);">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Invoice Number Generator?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Free Forever</h3>
+                    <p>Our tool is completely free to use with no hidden costs or subscription fees. Generate as many invoice numbers as you need.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">No Registration Required</h3>
+                    <p>Start generating invoice numbers instantly - no sign-up, no download, no installation needed.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Professional Standards</h3>
+                    <p>Create invoice numbers that follow professional standards and best practices for business documentation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">Start Generating Professional Invoice Numbers Now</h2>
+            <p style="margin-bottom: 2rem; font-size: 1.25rem; opacity: 0.9;">Free, instant, and no registration required.</p>
+            <a href="#" class="cta-button">Try Generator</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Format.im - Simple & Free Online Formatting Tools</p>
-            <p>Contact: <a href="mailto:support@format.im">support@format.im</a></p>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Format.im</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Tools</h3>
+                    <ul>
+                        <li><a href="/invoice-number-generator">Invoice Generator</a></li>
+                        <li><a href="#">More Tools Coming Soon</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#docs">Documentation</a></li>
+                        <li><a href="#api">API</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p>&copy; 2024 Format.im - Professional Online Formatting Tools</p>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
