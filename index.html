@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Format.im - Free Online Invoice Number Generator</title>
+    <meta name="description" content="Generate professional invoice numbers instantly. Free online tool for creating sequential, date-based, and custom invoice numbers for your business.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --background: #ffffff;
+            --background-alt: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--background);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(to bottom, #f0f9ff, var(--background));
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Tool Section */
+        .tool-section {
+            padding: 4rem 0;
+            background: var(--background);
+        }
+
+        .tool-container {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .tool-frame {
+            width: 100%;
+            height: 800px;
+            border: none;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background: var(--background-alt);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 4rem 0;
+            background: var(--background);
+        }
+
+        .benefits-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .benefit-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: var(--primary-light);
+            border-radius: 50%;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--background-alt);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">Format.im</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Professional Invoice Number Generator</h1>
+            <p class="hero-description">Create unique, sequential invoice numbers instantly. Perfect for businesses of all sizes.</p>
+        </div>
+    </section>
+
+    <section class="tool-section">
+        <div class="container">
+            <div class="tool-container">
+                <iframe src="https://format.im/invoice-number-generator/app.html" class="tool-frame" title="Invoice Number Generator"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Generator?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Multiple Numbering Formats</h3>
+                    <p>Choose from sequential, date-based, client-based, or custom formats to match your business needs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Easy to Use</h3>
+                    <p>Simple interface with instant preview. Generate numbers in seconds with our user-friendly tool.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Free & No Registration</h3>
+                    <p>Use our tool completely free, no sign-up required. Just open and start generating.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">Benefits of Structured Invoice Numbers</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <div>
+                        <h3>Better Organization</h3>
+                        <p>Structured invoice numbers help you keep track of all your business transactions efficiently.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <div>
+                        <h3>Professional Appearance</h3>
+                        <p>Well-formatted invoice numbers give your business documents a professional, organized look.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"></div>
+                    <div>
+                        <h3>Easy Tracking</h3>
+                        <p>Sequential numbering makes it simple to track payments and maintain accurate financial records.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Format.im - Simple & Free Online Formatting Tools</p>
+            <p>Contact: <a href="mailto:support@format.im">support@format.im</a></p>
+        </div>
+    </footer>
+</body>
+</html>
