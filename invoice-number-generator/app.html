@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Number Generator - Free Online Tool</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --background: #ffffff;
+            --card-background: #ffffff;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--card-background);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            width: 100%;
+            max-width: 42rem;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .card-description {
+            margin-top: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            color: var(--text);
+            font-size: 0.875rem;
+            transition: border-color 0.15s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .result-area {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-radius: 0.375rem;
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .result-area.show {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Invoice Number Generator</h1>
+                <p class="card-description">Generate unique, sequential invoice numbers for your business documents.</p>
+            </div>
+            <div class="card-content">
+                <form id="invoiceForm">
+                    <div class="form-group">
+                        <label class="form-label">Numbering Method</label>
+                        <select class="form-select" name="numberingMethod" id="numberingMethod">
+                            <option value="sequential">Sequential Numbers</option>
+                            <option value="date">Date Based</option>
+                            <option value="client">Client Code Based</option>
+                            <option value="project">Project Code Based</option>
+                            <option value="custom">Custom Alphanumeric</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Start Number</label>
+                            <input type="number" class="form-input" name="startNumber" id="startNumber" value="1001" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Number of Digits</label>
+                            <input type="number" class="form-input" name="digitLength" id="digitLength" value="4" min="1" max="10">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-3">
+                        <div class="form-group">
+                            <label class="form-label">Prefix</label>
+                            <input type="text" class="form-input" name="prefix" id="prefix" placeholder="Optional">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Separator</label>
+                            <input type="text" class="form-input" name="separator" id="separator" value="-" maxlength="1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Suffix</label>
+                            <input type="text" class="form-input" name="suffix" id="suffix" placeholder="Optional">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Quantity to Generate</label>
+                        <input type="number" class="form-input" name="quantity" id="quantity" value="1" min="1" max="1000">
+                    </div>
+
+                    <div id="dateOptions" class="form-group" style="display: none;">
+                        <label class="form-label">Date Format</label>
+                        <select class="form-select" name="dateFormat" id="dateFormat">
+                            <option value="YYYYMMDD">YYYYMMDD</option>
+                            <option value="YYMMDD">YYMMDD</option>
+                            <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                            <option value="YY-MM-DD">YY-MM-DD</option>
+                        </select>
+                    </div>
+
+                    <div id="clientOptions" class="form-group" style="display: none;">
+                        <label class="form-label">Client Code</label>
+                        <input type="text" class="form-input" name="clientCode" id="clientCode">
+                    </div>
+
+                    <div id="projectOptions" class="form-group" style="display: none;">
+                        <label class="form-label">Project Code</label>
+                        <input type="text" class="form-input" name="projectCode" id="projectCode">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-full">Generate Invoice Numbers</button>
+                </form>
+
+                <div id="resultArea" class="result-area">
+                    <div class="form-group">
+                        <label class="form-label">Generated Numbers:</label>
+                        <textarea id="generatedNumbers" class="form-input" rows="5" readonly></textarea>
+                    </div>
+                    <button id="copyButton" class="btn btn-primary">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form elements
+        const form = document.getElementById('invoiceForm');
+        const numberingMethod = document.getElementById('numberingMethod');
+        const dateOptions = document.getElementById('dateOptions');
+        const clientOptions = document.getElementById('clientOptions');
+        const projectOptions = document.getElementById('projectOptions');
+        const resultArea = document.getElementById('resultArea');
+        const generatedNumbers = document.getElementById('generatedNumbers');
+        const copyButton = document.getElementById('copyButton');
+
+        // Show/hide additional options based on numbering method
+        numberingMethod.addEventListener('change', function() {
+            dateOptions.style.display = this.value === 'date' ? 'block' : 'none';
+            clientOptions.style.display = this.value === 'client' ? 'block' : 'none';
+            projectOptions.style.display = this.value === 'project' ? 'block' : 'none';
+        });
+
+        // Generate invoice numbers
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const numbers = generateInvoiceNumbers(formData);
+            generatedNumbers.value = numbers.join('\n');
+            resultArea.classList.add('show');
+        });
+
+        // Copy to clipboard
+        copyButton.addEventListener('click', function() {
+            generatedNumbers.select();
+            document.execCommand('copy');
+            this.textContent = 'Copied!';
+            setTimeout(() => {
+                this.textContent = 'Copy to Clipboard';
+            }, 2000);
+        });
+
+        // Generate invoice numbers based on form data
+        function generateInvoiceNumbers(formData) {
+            const method = formData.get('numberingMethod');
+            const start = parseInt(formData.get('startNumber'));
+            const digits = parseInt(formData.get('digitLength'));
+            const quantity = parseInt(formData.get('quantity'));
+            const prefix = formData.get('prefix');
+            const separator = formData.get('separator');
+            const suffix = formData.get('suffix');
+            
+            let numbers = [];
+            
+            for (let i = 0; i < quantity; i++) {
+                let number = '';
+                
+                // Add prefix if exists
+                if (prefix) number += prefix + separator;
+                
+                // Generate main number based on method
+                switch (method) {
+                    case 'sequential':
+                        number += padNumber(start + i, digits);
+                        break;
+                    case 'date':
+                        const date = new Date();
+                        const dateFormat = formData.get('dateFormat');
+                        const dateStr = formatDate(date, dateFormat);
+                        number += dateStr + separator + padNumber(start + i, digits);
+                        break;
+                    case 'client':
+                        const clientCode = formData.get('clientCode');
+                        number += clientCode + separator + padNumber(start + i, digits);
+                        break;
+                    case 'project':
+                        const projectCode = formData.get('projectCode');
+                        number += projectCode + separator + padNumber(start + i, digits);
+                        break;
+                    case 'custom':
+                        number += padNumber(start + i, digits);
+                        break;
+                }
+                
+                // Add suffix if exists
+                if (suffix) number += separator + suffix;
+                
+                numbers.push(number);
+            }
+            
+            return numbers;
+        }
+
+        // Pad number with leading zeros
+        function padNumber(num, width) {
+            return num.toString().padStart(width, '0');
+        }
+
+        // Format date according to specified format
+        function formatDate(date, format) {
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            
+            switch (format) {
+                case 'YYYYMMDD':
+                    return `${year}${month}${day}`;
+                case 'YYMMDD':
+                    return `${year.toString().slice(-2)}${month}${day}`;
+                case 'YYYY-MM-DD':
+                    return `${year}-${month}-${day}`;
+                case 'YY-MM-DD':
+                    return `${year.toString().slice(-2)}-${month}-${day}`;
+                default:
+                    return `${year}${month}${day}`;
+            }
+        }
+    </script>
+</body>
+</html>
